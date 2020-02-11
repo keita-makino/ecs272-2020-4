@@ -1,0 +1,61 @@
+import React from 'react';
+import { Grid, makeStyles } from '@material-ui/core';
+import Scatter, { Props as ScatterProps } from '../organisms/Scatter';
+
+type Props = { scatter: ScatterProps };
+
+const useStyles = makeStyles({
+  visBox: {
+    padding: '1rem',
+    border: '1px solid #222222',
+    boxSizing: 'border-box'
+  }
+});
+
+const Index: React.FC<Props> = (props: Props) => {
+  const classes = useStyles();
+  return (
+    <>
+      <Grid
+        container
+        item
+        xs={12}
+        sm={12}
+        md={12}
+        lg={8}
+        xl={8}
+        className={classes.visBox}
+      >
+        <Scatter {...props.scatter} />
+      </Grid>
+      <Grid container item xs={12} sm={12} md={12} lg={4} xl={4}>
+        <Grid
+          container
+          item
+          xs={12}
+          sm={12}
+          md={6}
+          lg={12}
+          xl={12}
+          className={classes.visBox}
+        >
+          hoge
+        </Grid>
+        <Grid
+          container
+          item
+          xs={12}
+          sm={12}
+          md={6}
+          lg={12}
+          xl={12}
+          className={classes.visBox}
+        >
+          hoge
+        </Grid>
+      </Grid>
+    </>
+  );
+};
+
+export default Index;

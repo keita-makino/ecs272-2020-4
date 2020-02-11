@@ -1,26 +1,36 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import Index from './pages/Index';
+import { Grid } from '@material-ui/core';
 
+import ApolloClient, { InMemoryCache, gql } from 'apollo-boost';
+import { ApolloProvider } from '@apollo/react-hooks';
+import data from './data/initialState';
+
+const cache = new InMemoryCache();
+
+const client = new ApolloClient({
+  cache: cache,
+  typeDefs: '',
+  resolvers: {}
+});
+
+cache.writeData({
+  data
+});
+
+console.log(client.cache);
 const App = () => {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <ApolloProvider client={client}>
+        <Grid container xs={12} sm={12} md={12} lg={12} xl={12}>
+          <Index />
+        </Grid>
+      </ApolloProvider>
     </div>
   );
-}
+};
 
 export default App;
