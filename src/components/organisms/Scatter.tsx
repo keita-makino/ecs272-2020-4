@@ -10,6 +10,8 @@ import {
 
 export type Props = {
   title: string;
+  x?: string;
+  y?: string;
   data: { x: number; y: number; size: number }[];
 };
 
