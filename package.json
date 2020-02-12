@@ -47,7 +47,7 @@
     "eslint-config-prettier": "6.10.0",
     "eslint-plugin-prettier": "3.1.2",
     "graphql": "14.6.0",
-    "husky": "4.2.1",
+    "husky": "4.2.3",
     "license-checker": "25.0.1",
     "lint-staged": "10.0.7",
     "prettier": "1.19.1",
