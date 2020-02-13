@@ -10,7 +10,8 @@ import {
 } from 'react-vis';
 import useScatterData from '../uses/useScatterData';
 import SelectorPanel from '../molecules/SelectorPanel';
-import { Grid } from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
+import { useApolloClient } from '@apollo/react-hooks';
 
 export type Props = {
   title: string;
@@ -19,6 +20,8 @@ export type Props = {
 };
 
 const Scatter: React.FC<Props> = (props: Props) => {
+  const client = useApolloClient();
+
   const ref = useRef<HTMLDivElement>(null);
   const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
   const scatterData = useScatterData({
@@ -26,8 +29,17 @@ const Scatter: React.FC<Props> = (props: Props) => {
     y: props.y
   });
 
-  const onValueClick = (datapoint: any, event: any) => {
-    console.log(datapoint);
+  const onValueClick = (node: any, event: any) => {
+    client.writeData({
+      data: {
+        details: {
+          title: 'details',
+          id: node.id,
+          __typename: 'details'
+        }
+      }
+    });
+    console.log(client);
   };
 
   useEffect(() => {
@@ -41,18 +53,22 @@ const Scatter: React.FC<Props> = (props: Props) => {
     <>
       <Grid container item ref={ref}>
         <Grid container item xs={8} sm={8} md={8} lg={8} xl={8}>
-          <XYPlot width={containerSize.width / 1.55} height={600}>
-            <HorizontalGridLines />
-            <VerticalGridLines />
-            <XAxis />
-            <YAxis />
-            <MarkSeries
-              data={scatterData}
-              onValueClick={onValueClick}
-              strokeWidth={0.01}
-              colorType="literal"
-            />
-          </XYPlot>
+          {scatterData !== undefined ? (
+            <XYPlot width={containerSize.width / 1.55} height={600}>
+              <HorizontalGridLines />
+              <VerticalGridLines />
+              <XAxis title={props.x} />
+              <YAxis title={props.y} />
+              <MarkSeries
+                data={scatterData}
+                onValueClick={onValueClick}
+                strokeWidth={0.01}
+                colorType="literal"
+              />
+            </XYPlot>
+          ) : (
+            <Typography>'Please select axes'</Typography>
+          )}
         </Grid>
 
         <Grid

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Pokemon } from '../../consts/Pokemon';
 import data from '../../data/data.json';
 
-type Props = { name?: string };
+type Props = { id?: number };
 
 const useDetailsData = (props: Props) => {
   const [detailsData, setDetailsData] = useState<Pokemon | undefined>(
@@ -10,10 +10,10 @@ const useDetailsData = (props: Props) => {
   );
 
   useEffect(() => {
-    if (props.name !== undefined) {
-      setDetailsData(data.find(item => item.Name === props.name));
+    if (props.id !== undefined) {
+      setDetailsData(data.find(item => item.Number === props.id));
     }
-  }, [props.name]);
+  }, [props.id]);
 
   return detailsData;
 };

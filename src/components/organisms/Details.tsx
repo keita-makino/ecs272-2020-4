@@ -4,11 +4,11 @@ import { Table, TableRow, TableCell, TableBody } from '@material-ui/core';
 import useDetailsData from '../uses/useDetailsData';
 import SelectorPanel from '../molecules/SelectorPanel';
 
-export type Props = { name: string };
+export type Props = { id: number };
 
 const Details: React.FC<Props> = (props: Props) => {
   const detailsData = useDetailsData({
-    name: props.name
+    id: props.id
   });
   return (
     <>
@@ -21,7 +21,7 @@ const Details: React.FC<Props> = (props: Props) => {
                   {key}
                 </TableCell>
                 <TableCell component="th" scope="row">
-                  {value}
+                  {value?.toString()}
                 </TableCell>
               </TableRow>
             ))}

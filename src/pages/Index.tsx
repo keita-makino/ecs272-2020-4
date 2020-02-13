@@ -14,7 +14,7 @@ const query = gql`
     }
     details {
       title
-      name
+      id
     }
   }
 `;

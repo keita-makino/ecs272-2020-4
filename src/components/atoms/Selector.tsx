@@ -41,14 +41,8 @@ const Selector: React.FC<Props> = (props: Props) => {
       data: {
         [props.domain]: {
           [props.target]: option.value,
-          __typename: 'scatter'
+          __typename: props.domain
         }
-      }
-    });
-    console.log(client.cache, {
-      [props.domain]: {
-        [props.target]: option.value,
-        __typename: 'scatter'
       }
     });
   };

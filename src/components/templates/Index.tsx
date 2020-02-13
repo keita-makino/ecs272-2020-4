@@ -60,7 +60,7 @@ const Index: React.FC<Props> = (props: Props) => {
           xl={12}
           className={classes.visBox}
         >
-          <Details name={props.details.name} />
+          <Details id={props.details.id} />
         </Grid>
       </Grid>
     </>

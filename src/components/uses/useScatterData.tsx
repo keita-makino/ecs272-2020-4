@@ -7,7 +7,9 @@ import clustering from '../../utils/clustering';
 type Props = { x?: string; y?: string };
 
 const useScatterData = (props: Props) => {
-  const [scatterData, setScatterData] = useState<MarkSeriesPoint[]>([]);
+  const [scatterData, setScatterData] = useState<MarkSeriesPoint[] | undefined>(
+    undefined
+  );
 
   useEffect(() => {
     if (props.x !== null && props.y !== null) {
@@ -18,6 +20,7 @@ const useScatterData = (props: Props) => {
         return [
           ...prev,
           {
+            id: curr.Number,
             x: x === false || x === true ? x.toString() : x,
             y: y === false || y === true ? y.toString() : y,
             size: 1

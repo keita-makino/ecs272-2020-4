@@ -1,5 +1,6 @@
 import kmeans from 'ml-kmeans';
 import { MarkSeriesPoint } from 'react-vis';
+import { rgbToHex, hslToRgb } from '@material-ui/core';
 
 const clustering = (data: MarkSeriesPoint[]) => {
   if (!Number(data[0].x) || !Number(data[0].y)) return;
@@ -28,15 +29,13 @@ const clustering = (data: MarkSeriesPoint[]) => {
   const ans = kmeans(chosendata, k, { initialization: centers }).clusters;
 
   const getColor = (str: string | number) => {
-    const r = (str.toString().charCodeAt(0) * 147) % 255;
-    const g = (str.toString().charCodeAt(0) * 1526) % 255;
-    const b = (str.toString().charCodeAt(0) * 18452) % 255;
-    return `rgb(${r},${b},${g})`;
+    const hue = (str.toString().charCodeAt(0) * 147) % 360;
+    return `hsl(${hue}, 75%, 60%)`;
   };
 
   return data.map((item, index) => ({
     ...item,
-    fill: ans[index] * 15000,
+    color: rgbToHex(hslToRgb(getColor(ans[index]))),
     opacity: 0.5
   }));
 };
