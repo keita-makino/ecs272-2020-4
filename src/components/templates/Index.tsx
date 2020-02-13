@@ -22,6 +22,7 @@ const Index: React.FC<Props> = (props: Props) => {
 
   return (
     <>
+      {/* grid for scatter */}
       <Grid
         container
         item
@@ -34,6 +35,8 @@ const Index: React.FC<Props> = (props: Props) => {
       >
         <Scatter {...props.scatter} />
       </Grid>
+
+      {/* grid for parallel & detail */}
       <Grid container item xs={12} sm={12} md={12} lg={4} xl={4}>
         <Grid
           container

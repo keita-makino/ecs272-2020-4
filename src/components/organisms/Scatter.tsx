@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   XYPlot,
   XAxis,
@@ -19,6 +19,8 @@ export type Props = {
 };
 
 const Scatter: React.FC<Props> = (props: Props) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
   const scatterData = useScatterData({
     x: props.x,
     y: props.y
@@ -28,19 +30,41 @@ const Scatter: React.FC<Props> = (props: Props) => {
     console.log(datapoint);
   };
 
+  useEffect(() => {
+    setContainerSize({
+      width: ref.current!.getBoundingClientRect().width,
+      height: ref.current!.getBoundingClientRect().height
+    });
+  });
+
   return (
     <>
-      <Grid item container>
-        <XYPlot width={600} height={360}>
-          <HorizontalGridLines />
-          <VerticalGridLines />
-          <XAxis />
-          <YAxis />
-          <MarkSeries data={scatterData} onValueClick={onValueClick} />
-        </XYPlot>
-        <SelectorPanel target={'x'} />
-        <SelectorPanel target={'y'} />
-        <SelectorPanel target={'z'} />
+      <Grid container item ref={ref}>
+        <Grid container item xs={8} sm={8} md={8} lg={8} xl={8}>
+          <XYPlot width={containerSize.width / 1.55} height={600}>
+            <HorizontalGridLines />
+            <VerticalGridLines />
+            <XAxis />
+            <YAxis />
+            <MarkSeries data={scatterData} onValueClick={onValueClick} />
+          </XYPlot>
+        </Grid>
+
+        <Grid
+          container
+          item
+          xs={4}
+          sm={4}
+          md={4}
+          lg={4}
+          xl={4}
+          justify="flex-start"
+          alignItems="center"
+        >
+          <SelectorPanel target={'x'} />
+          <SelectorPanel target={'y'} />
+          <SelectorPanel target={'z'} />
+        </Grid>
       </Grid>
     </>
   );
