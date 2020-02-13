@@ -9,17 +9,18 @@ const query = gql`
   {
     scatter {
       title
-      data {
-        x
-        y
-        size
-      }
+      x
+      y
+    }
+    details {
+      title
+      name
     }
   }
 `;
 const Index: React.FC<Props> = (props: Props) => {
   const { data } = useQuery(query);
-  return <IndexTemplate scatter={data.scatter} />;
+  return <IndexTemplate scatter={data.scatter} details={data.details} />;
 };
 
 export default Index;

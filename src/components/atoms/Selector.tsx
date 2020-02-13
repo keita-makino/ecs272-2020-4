@@ -1,7 +1,7 @@
 import React from 'react';
 import Select from 'react-select';
 
-type Props = {};
+type Props = { target: string };
 
 const options = [
   'Number',

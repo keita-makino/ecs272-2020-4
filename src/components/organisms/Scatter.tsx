@@ -5,27 +5,43 @@ import {
   MarkSeries,
   YAxis,
   HorizontalGridLines,
-  VerticalGridLines
+  VerticalGridLines,
+  MarkSeriesPoint
 } from 'react-vis';
+import useScatterData from '../uses/useScatterData';
+import SelectorPanel from '../molecules/SelectorPanel';
+import { Grid } from '@material-ui/core';
 
 export type Props = {
   title: string;
   x?: string;
   y?: string;
-  data: { x: number; y: number; size: number }[];
 };
 
 const Scatter: React.FC<Props> = (props: Props) => {
-  console.log(props);
+  const scatterData = useScatterData({
+    x: props.x,
+    y: props.y
+  });
+
+  const onValueClick = (datapoint: any, event: any) => {
+    console.log(datapoint);
+  };
+
   return (
     <>
-      <XYPlot width={600} height={360}>
-        <HorizontalGridLines />
-        <VerticalGridLines />
-        <XAxis />
-        <YAxis />
-        <MarkSeries data={props.data} />
-      </XYPlot>
+      <Grid item container>
+        <XYPlot width={600} height={360}>
+          <HorizontalGridLines />
+          <VerticalGridLines />
+          <XAxis />
+          <YAxis />
+          <MarkSeries data={scatterData} onValueClick={onValueClick} />
+        </XYPlot>
+        <SelectorPanel target={'x'} />
+        <SelectorPanel target={'y'} />
+        <SelectorPanel target={'z'} />
+      </Grid>
     </>
   );
 };

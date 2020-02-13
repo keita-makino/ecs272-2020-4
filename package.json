@@ -50,6 +50,7 @@
     "husky": "4.2.1",
     "license-checker": "25.0.1",
     "lint-staged": "10.0.7",
+    "ml-kmeans": "^5.0.0",
     "prettier": "1.19.1",
     "react-router-dom": "5.1.2",
     "react-select": "^3.0.8",

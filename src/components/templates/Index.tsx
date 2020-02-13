@@ -1,8 +1,13 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import React from 'react';
 import { Grid, makeStyles } from '@material-ui/core';
 import Scatter, { Props as ScatterProps } from '../organisms/Scatter';
+import Details, { Props as DetailsProps } from '../organisms/Details';
 
-type Props = { scatter: ScatterProps };
+type Props = {
+  scatter: ScatterProps;
+  details: DetailsProps;
+};
 
 const useStyles = makeStyles({
   visBox: {
@@ -14,6 +19,7 @@ const useStyles = makeStyles({
 
 const Index: React.FC<Props> = (props: Props) => {
   const classes = useStyles();
+
   return (
     <>
       <Grid
@@ -51,7 +57,7 @@ const Index: React.FC<Props> = (props: Props) => {
           xl={12}
           className={classes.visBox}
         >
-          hoge
+          <Details name={props.details.name} />
         </Grid>
       </Grid>
     </>
