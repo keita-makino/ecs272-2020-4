@@ -12,6 +12,10 @@ const query = gql`
       x
       y
     }
+    parallel {
+      title
+      targets
+    }
     details {
       title
       id
@@ -20,7 +24,13 @@ const query = gql`
 `;
 const Index: React.FC<Props> = (props: Props) => {
   const { data } = useQuery(query);
-  return <IndexTemplate scatter={data.scatter} details={data.details} />;
+  return (
+    <IndexTemplate
+      scatter={data.scatter}
+      details={data.details}
+      parallel={data.parallel}
+    />
+  );
 };
 
 export default Index;

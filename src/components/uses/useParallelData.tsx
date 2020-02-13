@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Pokemon } from '../../consts/Pokemon';
 import data from '../../data/data.json';
-import { MarkSeriesPoint } from 'react-vis';
+import { MarkSeriesPoint, LineSeriesPoint } from 'react-vis';
 
 type Props = { targets: string[] };
 
 const useParallelData = (props: Props) => {
   const [parallelData, setParallelData] = useState<
-    MarkSeriesPoint[][] | undefined
+    LineSeriesPoint[][] | undefined
   >(undefined);
 
   useEffect(() => {
@@ -33,7 +33,7 @@ const useParallelData = (props: Props) => {
                   domains[curr][1]
               }
             ];
-          }, [] as MarkSeriesPoint[]);
+          }, [] as LineSeriesPoint[]);
         })
       );
     }

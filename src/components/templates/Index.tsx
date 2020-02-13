@@ -3,10 +3,12 @@ import React from 'react';
 import { Grid, makeStyles } from '@material-ui/core';
 import Scatter, { Props as ScatterProps } from '../organisms/Scatter';
 import Details, { Props as DetailsProps } from '../organisms/Details';
+import Parallel, { Props as ParallelProps } from '../organisms/Parallel';
 
 type Props = {
   scatter: ScatterProps;
   details: DetailsProps;
+  parallel: ParallelProps;
 };
 
 const useStyles = makeStyles({
@@ -48,7 +50,7 @@ const Index: React.FC<Props> = (props: Props) => {
           xl={12}
           className={classes.visBox}
         >
-          hoge
+          <Parallel targets={props.parallel.targets} />
         </Grid>
         <Grid
           container
