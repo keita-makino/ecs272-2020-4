@@ -1,7 +1,11 @@
 import React from 'react';
 import Select from 'react-select';
+import { useApolloClient } from '@apollo/react-hooks';
 
-type Props = { target: string };
+export type Props = {
+  domain: string;
+  target: string;
+};
 
 const options = [
   'Number',
@@ -30,9 +34,28 @@ const options = [
 ].map(item => ({ value: item, label: item }));
 
 const Selector: React.FC<Props> = (props: Props) => {
+  const client = useApolloClient();
+
+  const toggle = (option: any) => {
+    client.writeData({
+      data: {
+        [props.domain]: {
+          [props.target]: option.value,
+          __typename: 'scatter'
+        }
+      }
+    });
+    console.log(client.cache, {
+      [props.domain]: {
+        [props.target]: option.value,
+        __typename: 'scatter'
+      }
+    });
+  };
+
   return (
     <>
-      <Select options={options} />
+      <Select options={options} onChange={toggle} />
     </>
   );
 };

@@ -31,16 +31,21 @@ const Scatter: React.FC<Props> = (props: Props) => {
   return (
     <>
       <Grid item container>
-        <XYPlot width={600} height={360}>
+        <XYPlot animation width={600} height={360}>
           <HorizontalGridLines />
           <VerticalGridLines />
           <XAxis />
           <YAxis />
-          <MarkSeries data={scatterData} onValueClick={onValueClick} />
+          <MarkSeries
+            data={scatterData}
+            onValueClick={onValueClick}
+            strokeWidth={0.01}
+            colorType="literal"
+          />
         </XYPlot>
-        <SelectorPanel target={'x'} />
-        <SelectorPanel target={'y'} />
-        <SelectorPanel target={'z'} />
+        <SelectorPanel domain={'scatter'} target={'x'} />
+        <SelectorPanel domain={'scatter'} target={'y'} />
+        <SelectorPanel domain={'scatter'} target={'z'} />
       </Grid>
     </>
   );

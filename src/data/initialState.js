@@ -1,8 +1,8 @@
 export default {
   scatter: {
     title: 'scatter',
-    x: 'Number',
-    y: 'Total',
+    x: null,
+    y: null,
     __typename: 'scatter'
   },
   parallel: {
