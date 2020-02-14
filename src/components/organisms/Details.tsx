@@ -12,17 +12,28 @@ const Details: React.FC<Props> = (props: Props) => {
   });
 
   let subset;
+  let imgSrc;
 
   if (detailsData !== undefined) {
     subset = Object.entries(detailsData).filter(
       item =>
+        item[0] === 'Number' ||
         item[0] === 'Name' ||
         item[0] === 'Type_1' ||
         item[0] === 'HP' ||
         item[0] === 'Attack' ||
-        item[0] === 'Defense'
+        item[0] === 'Defense' ||
+        item[0] === 'Height_m' ||
+        item[0] === 'Weight_kg'
     );
     console.log(subset);
+
+    imgSrc =
+      'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/' +
+      subset.find(item => item[0] === 'Number')![1] +
+      '.png';
+
+    console.log(imgSrc);
   }
 
   return (
@@ -30,6 +41,7 @@ const Details: React.FC<Props> = (props: Props) => {
       {subset !== undefined ? (
         <Table>
           <TableBody>
+            <img src={imgSrc} height={200} width={200}></img>
             {subset.map(([key, value]) => (
               <TableRow key={key}>
                 <TableCell component="th" scope="row">
