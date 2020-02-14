@@ -6,6 +6,8 @@ import { gql } from 'apollo-boost';
 export type Props = {
   domain: string;
   target: string;
+  value?: string;
+  position?: number;
 };
 
 const options = [
@@ -35,8 +37,8 @@ const options = [
 ].map(item => ({ value: item, label: item }));
 
 const UPDATE_PARALLEL = gql`
-  mutation UpdateParallel($id: String!) {
-    updateParallel(id: $id) @client
+  mutation UpdateParallel($target: String!, $position: Integer) {
+    updateParallel(target: $target, position: $position) @client
   }
 `;
 
@@ -57,8 +59,9 @@ const Selector: React.FC<Props> = (props: Props) => {
         });
         break;
       case 'parallel':
-        console.log(1);
-        updateParallel({ variables: { target: option.value } });
+        updateParallel({
+          variables: { target: option.value, position: props.position }
+        });
         break;
       default:
         break;
@@ -67,7 +70,7 @@ const Selector: React.FC<Props> = (props: Props) => {
 
   return (
     <>
-      <Select options={options} onChange={update} />
+      <Select options={options} onChange={update} placeholder={props.value} />
     </>
   );
 };

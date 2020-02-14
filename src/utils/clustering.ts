@@ -1,13 +1,17 @@
 import kmeans from 'ml-kmeans';
 import { MarkSeriesPoint } from 'react-vis';
 import { rgbToHex, hslToRgb } from '@material-ui/core';
+import { ApolloClient } from 'apollo-boost';
 
-const clustering = (data: MarkSeriesPoint[]) => {
+const clustering = (
+  data: MarkSeriesPoint[],
+  client: ApolloClient<object>,
+  k: number
+) => {
   if (!Number(data[0].x) || !Number(data[0].y)) return;
   const array1 = data.map(item => item.x) as number[]; //from data find all variable1 values
   const array2 = data.map(item => item.y) as number[]; //from data find all variable2 values
 
-  const k = 5; //should be able to be chosen through widget in future
   const centers = [];
 
   for (let index = 0; index < k; index++) {
@@ -33,11 +37,19 @@ const clustering = (data: MarkSeriesPoint[]) => {
     return `hsl(${hue}, 75%, 60%)`;
   };
 
-  return data.map((item, index) => ({
+  const processedData = data.map((item, index) => ({
     ...item,
     color: rgbToHex(hslToRgb(getColor(ans[index]))),
     opacity: 0.5
   }));
+
+  client.writeData({
+    data: {
+      colors: processedData.map(item => item.color)
+    }
+  });
+
+  return processedData;
 };
 
 export default clustering;

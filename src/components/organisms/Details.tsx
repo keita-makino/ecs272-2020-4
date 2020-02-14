@@ -22,7 +22,6 @@ const Details: React.FC<Props> = (props: Props) => {
         item[0] === 'Attack' ||
         item[0] === 'Defense'
     );
-    console.log(subset);
   }
 
   return (

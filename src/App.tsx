@@ -7,39 +7,20 @@ import { Grid } from '@material-ui/core';
 import ApolloClient, { InMemoryCache, gql } from 'apollo-boost';
 import { ApolloProvider } from '@apollo/react-hooks';
 import data from './data/initialState';
+import resolvers from './resolvers';
 
 const cache = new InMemoryCache();
 
 const client = new ApolloClient({
   cache: cache,
   typeDefs: '',
-  resolvers: {
-    Mutation: {
-      updateParallel: (_root, variables, { cache, getCacheKey }) => {
-        const id = getCacheKey({
-          __typename: 'parallel',
-          id: variables.target
-        });
-        console.log(id);
-        const fragment = gql`
-          fragment completeTodo on TodoItem {
-            completed
-          }
-        `;
-        const todo = cache.readFragment({ fragment, id });
-        const data = { ...todo, completed: !todo.completed };
-        cache.writeData({ id, data });
-        return null;
-      }
-    }
-  }
+  resolvers: resolvers
 });
 
 cache.writeData({
   data
 });
 
-console.log(client.cache);
 const App = () => {
   return (
     <div className="App">

@@ -35,11 +35,6 @@ const Index: React.FC<Props> = (props: Props) => {
         xl={8}
         className={classes.visBox}
       >
-        <Scatter {...props.scatter} />
-      </Grid>
-
-      {/* grid for parallel & detail */}
-      <Grid container item xs={12} sm={12} md={12} lg={4} xl={4}>
         <Grid
           container
           item
@@ -50,7 +45,7 @@ const Index: React.FC<Props> = (props: Props) => {
           xl={12}
           className={classes.visBox}
         >
-          <Parallel targets={props.parallel.targets} />
+          <Scatter {...props.scatter} />
         </Grid>
         <Grid
           container
@@ -64,6 +59,20 @@ const Index: React.FC<Props> = (props: Props) => {
         >
           <Details id={props.details.id} />
         </Grid>
+      </Grid>
+
+      {/* grid for parallel & detail */}
+      <Grid
+        container
+        item
+        xs={12}
+        sm={12}
+        md={12}
+        lg={4}
+        xl={4}
+        className={classes.visBox}
+      >
+        <Parallel targets={props.parallel.targets} />
       </Grid>
     </>
   );

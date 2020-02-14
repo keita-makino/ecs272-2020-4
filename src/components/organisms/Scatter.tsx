@@ -6,17 +6,27 @@ import {
   YAxis,
   HorizontalGridLines,
   VerticalGridLines,
-  MarkSeriesPoint
+  MarkSeriesPoint,
+  Hint
 } from 'react-vis';
 import useScatterData from '../uses/useScatterData';
 import SelectorPanel from '../molecules/SelectorPanel';
 import { Grid, Typography } from '@material-ui/core';
 import { useApolloClient } from '@apollo/react-hooks';
+import SliderPanel from '../molecules/SliderPanel';
 
 export type Props = {
   title: string;
   x?: string;
   y?: string;
+  k: number;
+};
+
+type ToolTip = {
+  id: number;
+  x: number;
+  y: number;
+  name: string;
 };
 
 const Scatter: React.FC<Props> = (props: Props) => {
@@ -26,8 +36,10 @@ const Scatter: React.FC<Props> = (props: Props) => {
   const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
   const scatterData = useScatterData({
     x: props.x,
-    y: props.y
+    y: props.y,
+    k: props.k
   });
+  const [tooltip, setTooltip] = useState<ToolTip | undefined>(undefined);
 
   const onValueClick = (node: any, event: any) => {
     client.writeData({
@@ -39,7 +51,13 @@ const Scatter: React.FC<Props> = (props: Props) => {
         }
       }
     });
-    console.log(client);
+  };
+
+  const onMouseOver = (node: any, event: any) => {
+    setTooltip({ x: node.x, y: node.y, id: node.id, name: node.name });
+  };
+  const onMouseOut = (node: any, event: any) => {
+    setTooltip(undefined);
   };
 
   useEffect(() => {
@@ -64,7 +82,10 @@ const Scatter: React.FC<Props> = (props: Props) => {
                 onValueClick={onValueClick}
                 strokeWidth={0.01}
                 colorType="literal"
+                onValueMouseOver={onMouseOver}
+                onValueMouseOut={onMouseOut}
               />
+              {tooltip !== undefined ? <Hint value={tooltip} /> : null}
             </XYPlot>
           ) : (
             <Typography>'Please select axes'</Typography>
@@ -82,9 +103,9 @@ const Scatter: React.FC<Props> = (props: Props) => {
           justify="flex-start"
           alignItems="center"
         >
-          <SelectorPanel domain={'scatter'} target={'x'} />
-          <SelectorPanel domain={'scatter'} target={'y'} />
-          <SelectorPanel domain={'scatter'} target={'z'} />
+          <SelectorPanel domain={'scatter'} target={'x'} value={props.x} />
+          <SelectorPanel domain={'scatter'} target={'y'} value={props.y} />
+          <SliderPanel initial={2} />
         </Grid>
       </Grid>
     </>

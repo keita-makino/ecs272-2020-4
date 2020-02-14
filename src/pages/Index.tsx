@@ -11,10 +11,14 @@ const query = gql`
       title
       x
       y
+      k
     }
     parallel {
       title
-      targets
+      targets {
+        position
+        name
+      }
     }
     details {
       title
