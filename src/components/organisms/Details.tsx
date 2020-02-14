@@ -10,12 +10,27 @@ const Details: React.FC<Props> = (props: Props) => {
   const detailsData = useDetailsData({
     id: props.id
   });
+
+  let subset;
+
+  if (detailsData !== undefined) {
+    subset = Object.entries(detailsData).filter(
+      item =>
+        item[0] === 'Name' ||
+        item[0] === 'Type_1' ||
+        item[0] === 'HP' ||
+        item[0] === 'Attack' ||
+        item[0] === 'Defense'
+    );
+    console.log(subset);
+  }
+
   return (
     <>
-      {detailsData !== undefined ? (
+      {subset !== undefined ? (
         <Table>
           <TableBody>
-            {Object.entries(detailsData).map(([key, value]) => (
+            {subset.map(([key, value]) => (
               <TableRow key={key}>
                 <TableCell component="th" scope="row">
                   {key}
