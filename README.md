@@ -1,10 +1,11 @@
-# keita-makino/react-template 
+# ecs272-2020-4
 
-To bootstrap a react project based on CRA, with
+As a homework of [ECS272 2020 Winter: Immersive Visualization](https://github.com/ucdavis/ECS272-Winter2020).
 
-- Typescript
-- ESLint
-- material-ui
-- prettier
-- Auto code formatting before commit (husky + lint-staged)
-- License statement of packages (license-checker)
+# Webpage
+
+You can try the demo [here](https://keita-makino.github.io/ecs272-2020-4).
+
+# Data
+
+[Pokemon dataset](https://www.kaggle.com/alopez247/pokemon)
