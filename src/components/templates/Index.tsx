@@ -4,6 +4,7 @@ import { Grid, makeStyles } from '@material-ui/core';
 import Scatter, { Props as ScatterProps } from '../organisms/Scatter';
 import Details, { Props as DetailsProps } from '../organisms/Details';
 import Parallel, { Props as ParallelProps } from '../organisms/Parallel';
+import Header from '../organisms/Header';
 
 type Props = {
   scatter: ScatterProps;
@@ -12,10 +13,27 @@ type Props = {
 };
 
 const useStyles = makeStyles({
+  main: {
+    height: 'calc(100vh - 4rem)',
+    backgroundColor: '#FBF6E5'
+  },
+  scatter: {
+    height: 'calc(75vh - 3rem)'
+  },
+  details: {
+    height: 'calc(25vh - 1rem)'
+  },
+  parallel: {
+    height: 'calc(100vh - 4rem)'
+  },
   visBox: {
-    padding: '1rem',
-    border: '1px solid #222222',
-    boxSizing: 'border-box'
+    boxShadow: 'inset 0 0 8px -3px #002855',
+    '& .component': {
+      padding: '16px'
+    },
+    '& .rv-xy-plot': {
+      backgroundColor: '#FFFFFF'
+    }
   }
 });
 
@@ -24,55 +42,60 @@ const Index: React.FC<Props> = (props: Props) => {
 
   return (
     <>
-      {/* grid for scatter */}
-      <Grid
-        container
-        item
-        xs={12}
-        sm={12}
-        md={12}
-        lg={8}
-        xl={8}
-        className={classes.visBox}
-      >
-        <Grid
-          container
-          item
-          xs={12}
-          sm={12}
-          md={6}
-          lg={12}
-          xl={12}
-          className={classes.visBox}
-        >
-          <Scatter {...props.scatter} />
-        </Grid>
-        <Grid
-          container
-          item
-          xs={12}
-          sm={12}
-          md={6}
-          lg={12}
-          xl={12}
-          className={classes.visBox}
-        >
-          <Details id={props.details.id} />
-        </Grid>
+      <Grid item container xs={12} sm={12} md={12} lg={12} xl={12}>
+        <Header />
       </Grid>
-
-      {/* grid for parallel & detail */}
       <Grid
-        container
         item
+        container
         xs={12}
         sm={12}
         md={12}
-        lg={4}
-        xl={4}
-        className={classes.visBox}
+        lg={12}
+        xl={12}
+        className={classes.main}
       >
-        <Parallel targets={props.parallel.targets} />
+        {/* grid for scatter */}
+        <Grid container item xs={12} sm={12} md={12} lg={8} xl={8}>
+          <Grid
+            container
+            item
+            xs={12}
+            sm={12}
+            md={12}
+            lg={12}
+            xl={12}
+            className={`${classes.scatter} ${classes.visBox}`}
+          >
+            <Scatter {...props.scatter} />
+          </Grid>
+          <Grid
+            container
+            item
+            xs={12}
+            sm={12}
+            md={12}
+            lg={12}
+            xl={12}
+            className={`${classes.details} ${classes.visBox}`}
+          >
+            <Details id={props.details.id} />
+          </Grid>
+        </Grid>
+
+        {/* grid for parallel & detail */}
+        <Grid
+          container
+          item
+          xs={12}
+          sm={12}
+          md={12}
+          lg={4}
+          xl={4}
+          className={`${classes.parallel} ${classes.visBox}`}
+        >
+          <Parallel targets={props.parallel.targets} />
+        </Grid>
       </Grid>
     </>
   );

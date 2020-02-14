@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Pokemon } from '../../consts/Pokemon';
 import data from '../../data/data.json';
 import { LineSeriesPoint } from 'react-vis';
+import useHighlight from './useHighlight';
 
 type Props = { targets: { position: number; name: string }[] };
 

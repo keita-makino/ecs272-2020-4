@@ -40,7 +40,7 @@ const clustering = (
   const processedData = data.map((item, index) => ({
     ...item,
     color: rgbToHex(hslToRgb(getColor(ans[index]))),
-    opacity: 0.5
+    opacity: 0.25
   }));
 
   client.writeData({

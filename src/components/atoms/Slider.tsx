@@ -30,6 +30,7 @@ const Slider: React.FC<Props> = (props: Props) => {
         max={8}
         min={1}
         defaultValue={props.initial}
+        valueLabelDisplay={'on'}
       />
     </>
   );

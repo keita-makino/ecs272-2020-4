@@ -16,7 +16,7 @@ const SelectorPanel: React.FC<Props> = (props: Props) => {
         md={12}
         lg={12}
         xl={12}
-        alignItems={'center'}
+        alignItems={'baseline'}
       >
         <Grid item xs={2} sm={2} md={2} lg={2} xl={2}>
           <Typography variant={'body1'}>{props.target}</Typography>
