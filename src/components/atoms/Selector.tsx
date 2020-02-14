@@ -1,6 +1,7 @@
 import React from 'react';
 import Select from 'react-select';
-import { useApolloClient } from '@apollo/react-hooks';
+import { useApolloClient, useMutation } from '@apollo/react-hooks';
+import { gql } from 'apollo-boost';
 
 export type Props = {
   domain: string;
@@ -33,23 +34,40 @@ const options = [
   'Body_Style'
 ].map(item => ({ value: item, label: item }));
 
+const UPDATE_PARALLEL = gql`
+  mutation UpdateParallel($id: String!) {
+    updateParallel(id: $id) @client
+  }
+`;
+
 const Selector: React.FC<Props> = (props: Props) => {
   const client = useApolloClient();
+  const [updateParallel] = useMutation(UPDATE_PARALLEL);
 
-  const toggle = (option: any) => {
-    client.writeData({
-      data: {
-        [props.domain]: {
-          [props.target]: option.value,
-          __typename: props.domain
-        }
-      }
-    });
+  const update = (option: any) => {
+    switch (props.domain) {
+      case 'scatter':
+        client.writeData({
+          data: {
+            [props.domain]: {
+              [props.target]: option.value,
+              __typename: props.domain
+            }
+          }
+        });
+        break;
+      case 'parallel':
+        console.log(1);
+        updateParallel({ variables: { target: option.value } });
+        break;
+      default:
+        break;
+    }
   };
 
   return (
     <>
-      <Select options={options} onChange={toggle} />
+      <Select options={options} onChange={update} />
     </>
   );
 };

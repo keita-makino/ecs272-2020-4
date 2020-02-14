@@ -13,7 +13,26 @@ const cache = new InMemoryCache();
 const client = new ApolloClient({
   cache: cache,
   typeDefs: '',
-  resolvers: {}
+  resolvers: {
+    Mutation: {
+      updateParallel: (_root, variables, { cache, getCacheKey }) => {
+        const id = getCacheKey({
+          __typename: 'parallel',
+          id: variables.target
+        });
+        console.log(id);
+        const fragment = gql`
+          fragment completeTodo on TodoItem {
+            completed
+          }
+        `;
+        const todo = cache.readFragment({ fragment, id });
+        const data = { ...todo, completed: !todo.completed };
+        cache.writeData({ id, data });
+        return null;
+      }
+    }
+  }
 });
 
 cache.writeData({
