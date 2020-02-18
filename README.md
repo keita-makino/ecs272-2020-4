@@ -1,6 +1,6 @@
 # ecs272-2020-4
 
-As a homework of [ECS272 2020 Winter: Immersive Visualization](https://github.com/ucdavis/ECS272-Winter2020).
+As a homework of [ECS272 2020 Winter: Information Visualization](https://github.com/ucdavis/ECS272-Winter2020).
 
 # Webpage
 
