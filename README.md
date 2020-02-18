@@ -8,7 +8,7 @@ You can try the demo [here](https://keita-makino.github.io/ecs272-2020-4).
 
 # Workaround to Run Locally
 
-You need to fix edit the typings of react-vis-types to enable labels in the parallel coordinates.
+You need to edit the typings of `react-vis-types` to enable labels in the parallel coordinates.
 
 ```ts
 node_modules/react-vis-types/index.d.ts
