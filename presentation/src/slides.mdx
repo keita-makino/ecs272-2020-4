@@ -1,21 +1,22 @@
-import { Notes, Text, Appear, CodePane } from 'spectacle';
+import { Text, Appear, CodePane } from 'spectacle';
+
+# 
+# 
 
 # Po-K-Means
 
 ### ECS272 Assignment 4
 
-<br />
+
+# 
+# 
+# 
+# 
 
 <p style={{textAlign: "right"}}>
   Alice Helena Lundvall, Keita Makino  <br />
-  11/25/2019
+  02/24/2020
 </p>
-
-<Notes>
-  OK, let's start. This is Keita Makino TTP, new PhD student. Today I would like
-  to share something about this topic. But no worries, I will never say anything
-  comlicated math or stats or physics today. Just an overview.
-</Notes>
 
 ---
 
@@ -23,11 +24,11 @@ import { Notes, Text, Appear, CodePane } from 'spectacle';
 
 # Pokemon Dataset
 
-- Contains 721 Pokemons (till 6th gen.)
+- Contains 721 Pokemons (<= 6th gen.)
 - Each record has attributes including:
   - Six basic parameters (ATK, DEF, ...)
   - Dimension (Height, Weight)
-  - Type (e.g., grass, water)
+  - Type (e.g., Grass, Water)
 - We implemented a vis for all attributes
 
 ---
@@ -84,7 +85,18 @@ import { Notes, Text, Appear, CodePane } from 'spectacle';
 
 ---
 
-# Demo 🚀
+# 
+# 
+# 
+# 
+# 
+# 
+
+<a href="https://keita-makino.github.io/ecs272-2020-4/">
+  <h1>
+    Demo 🚀
+  </h1>
+</a>
 
 ---
 
@@ -94,11 +106,11 @@ import { Notes, Text, Appear, CodePane } from 'spectacle';
 
 - Five levels of components
   - Atoms < Molecules < Organisms < Templates < Pages
+- More reusable components
+  - Final project?
 - Data handling?
   - The "global state" is only for pages
 
-<br />
-<br />
 <br />
 <br />
 <br />
@@ -120,6 +132,12 @@ import { Notes, Text, Appear, CodePane } from 'spectacle';
 - Some lower-level components write data
 - Each Page query the global state
 
+<div style={{display: "flex", justifyContent:"center", width: "100%", height: "33vh", position: "fixed", bottom: "3.25rem"}}>
+<img
+  src={"https://miro.medium.com/max/1740/1*ZHTs1iOH247NQLEOxXzHFw.png"}
+  style={{height: "100%"}}
+/>
+</div>
 ---
 
 <p style={{fontSize: "1.5rem", position: "fixed", top: 0, right: 0}}>Interaction / UI</p>
@@ -223,5 +241,41 @@ const query = gql`
 
 ---
 
-<p style={{fontSize: "1.5rem", position: "fixed", top: 0, right: 0}}>Interaction / UI</p>
+<p style={{fontSize: "1.5rem", position: "fixed", top: 0, right: 0}}>Extra</p>
 
+# Other Factors in the Vis
+
+- Coloring
+  - Evenly distributed hue
+  - Find a good match with background
+- Categorical values
+  - Special data handling depending on data type
+
+```tsx
+if (!Number(data[0].x) || !Number(data[0].y)) {
+  // ...
+}
+```
+
+---
+
+<p style={{fontSize: "1.5rem", position: "fixed", top: 0, right: 0}}>Thoughts</p>
+
+# Thoughts
+
+- Overlaps in parallel-coordinates
+  - Even with 15% opacity
+  - Bundling?
+- Overlaps in scatterplot
+  - Not selectable
+  - Merge marks in a larger mark?
+---
+
+# 
+# 
+# 
+# 
+# 
+# 
+
+# Thank You!
