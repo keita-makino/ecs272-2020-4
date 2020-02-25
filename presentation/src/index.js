@@ -8,7 +8,6 @@ import {
   FlexBox,
   Slide,
   Box,
-  Progress,
   FullScreen,
   Notes,
   mdxComponentMap
@@ -56,7 +55,7 @@ const template = () => (
     bottom={0}
     width={1}
   >
-    <Box padding="0 1em">
+    <Box padding="0 1rem">
       <FullScreen />
     </Box>
   </FlexBox>
