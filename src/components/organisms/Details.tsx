@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { Typography, Grid, Box } from '@material-ui/core';
-import usePokemon from '../uses/useDetailsData';
+import usePokemon from '../uses/usePokemon';
 import { useWindowSize } from 'react-use';
 import useParallelData from '../uses/useParallelData';
 import { RadarChart, RadarChartPoint } from 'react-vis';

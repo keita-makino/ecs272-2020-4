@@ -110,21 +110,28 @@ const Parallel: React.FC<Props> = (props: Props) => {
           margin={{ top: 15, left: 0, bottom: 15, right: 0 }}
         >
           {parallelData !== undefined
-            ? parallelData!.map((item: LineSeriesPoint[], index: number) => {
-                return (
-                  <LineSeries
-                    data={item}
-                    color={
-                      highlight === index + 1
-                        ? '#222222'
-                        : colors
-                        ? colors[index]
-                        : '#12939a'
-                    }
-                    opacity={highlight === index + 1 ? 1 : 0.125}
-                  />
-                );
-              })
+            ? [
+                parallelData!.map((item: LineSeriesPoint[], index: number) => {
+                  return highlight !== index + 1 ? (
+                    <LineSeries
+                      data={item}
+                      color={colors ? colors[index] : '#12939a'}
+                      opacity={0.125}
+                    />
+                  ) : null;
+                }),
+                parallelData!
+                  .filter((item: any, index: number) => highlight === index + 1)
+                  .map((item: LineSeriesPoint[], index: number) => {
+                    return highlight !== index + 1 ? (
+                      <LineSeries
+                        data={item}
+                        color={colors ? '#222222' : '#12939a'}
+                        opacity={1}
+                      />
+                    ) : null;
+                  })
+              ]
             : null}
           {parallelData !== undefined
             ? parallelData![0].map(

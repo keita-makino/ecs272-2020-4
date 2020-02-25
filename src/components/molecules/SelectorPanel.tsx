@@ -2,8 +2,11 @@ import React from 'react';
 import { Typography, Grid } from '@material-ui/core';
 import Selector from '../atoms/Selector';
 import { Props as SelectorProps } from '../atoms/Selector';
+import Search from '../atoms/Search';
 
-type Props = SelectorProps;
+type Props = SelectorProps & {
+  search?: boolean;
+};
 
 const SelectorPanel: React.FC<Props> = (props: Props) => {
   return (
@@ -22,7 +25,7 @@ const SelectorPanel: React.FC<Props> = (props: Props) => {
           <Typography variant={'body1'}>{props.target}</Typography>
         </Grid>
         <Grid item xs={10} sm={10} md={10} lg={10} xl={10}>
-          <Selector {...props} />
+          {props.search ? <Search {...props} /> : <Selector {...props} />}
         </Grid>
       </Grid>
     </>

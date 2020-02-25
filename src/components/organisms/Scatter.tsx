@@ -119,7 +119,15 @@ const Scatter: React.FC<Props> = (props: Props) => {
             />
             <YAxis title={props.y} tickValues={tickValues.y} />
             <MarkSeries
-              data={scatterData}
+              data={scatterData.filter(item => item.opacity !== 1)}
+              onValueClick={onValueClick}
+              strokeWidth={0.01}
+              colorType="literal"
+              onValueMouseOver={onMouseOver}
+              onValueMouseOut={onMouseOut}
+            />
+            <MarkSeries
+              data={scatterData.filter(item => item.opacity === 1)}
               onValueClick={onValueClick}
               strokeWidth={0.01}
               colorType="literal"
@@ -144,6 +152,7 @@ const Scatter: React.FC<Props> = (props: Props) => {
         justify="center"
         alignItems="center"
       >
+        <SelectorPanel domain={'scatter'} target={'Search'} search />
         <SelectorPanel domain={'scatter'} target={'x'} value={props.x} />
         <SelectorPanel domain={'scatter'} target={'y'} value={props.y} />
         <SliderPanel initial={2} />
