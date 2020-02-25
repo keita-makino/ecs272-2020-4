@@ -1,0 +1,205 @@
+import { Notes, Text, Appear, CodePane } from 'spectacle';
+
+# Po-K-Means
+
+### ECS272 Assignment 4
+
+<br />
+
+Alice Helena Lundvall, Keita Makino  
+11/25/2019
+
+<Notes>
+  OK, let's start. This is Keita Makino TTP, new PhD student. Today I would like
+  to share something about this topic. But no worries, I will never say anything
+  comlicated math or stats or physics today. Just an overview.
+</Notes>
+
+---
+
+<p style={{fontSize: "1.5rem", position: "fixed", right: 0}}>Dataset</p>
+
+# Pokemon Dataset
+
+- Contains 721 Pokemons (till 6th gen.)
+- Each record has attributes including:
+  - Six basic parameters (ATK, DEF, ...)
+  - Dimension (Height, Weight)
+  - Type (e.g., grass, water)
+- We implemented a vis for all attributes
+
+---
+
+<p style={{fontSize: "1.5rem", position: "fixed", right: 0}}>Data Analysis</p>
+
+# K-Means Clustering
+
+- Classify Pokemons by proximity
+- Two axes: X and Y
+  - No PCA in this work
+
+---
+
+<p style={{fontSize: "1.5rem", position: "fixed", right: 0}}>Data Analysis</p>
+
+# K-Means Clustering
+
+1. Define k representatives
+2. Classify data to the nearest representative
+3. Evaluate the center of each cluster
+4. Move the representative points to the center
+5. Iterate 3 and 4 until convergence
+
+---
+
+<p style={{fontSize: "1.5rem", position: "fixed", right: 0}}>Data Analysis</p>
+
+# Parallel-Coordinates
+
+- Plot more high-dimension data
+- Up to six axes
+
+---
+
+<p style={{fontSize: "1.5rem", position: "fixed", right: 0}}>Interaction / UI</p>
+
+# Users Can...
+
+- Select X and Y for k-means Clustering
+- Select six axes for Parallel
+- Change the parameter k
+- Pick a Pokemon for more details
+- State is synchronized
+
+---
+
+# Demo 🚀
+
+---
+
+<p style={{fontSize: "1.5rem", position: "fixed", right: 0}}>Interaction / UI</p>
+
+# Atomic Design
+
+- Five levels of components
+  - Atoms < Molecules < Organisms < Templates < Pages
+- Data handling?
+  - The "global state" is only for pages
+
+<img
+  src={"https://atomicdesign.bradfrost.com/images/content/atomic-design-process.png"}
+  style={{height: "33vh", position: "absolute", right: "3.25rem", bottom: "3.25rem"}}
+/>
+
+<p style={{fontSize: "1rem", position: "fixed", right: 0, bottom: 0}}>Image: Atomic Design Methodology (https://atomicdesign.bradfrost.com/chapter-2/)</p>
+
+---
+
+<p style={{fontSize: "1.5rem", position: "fixed", right: 0}}>Interaction / UI</p>
+
+# State Synchronization
+
+- Use Apollo Client + GraphQL
+- Some lower-level components write data
+- Each Page query the global state
+
+---
+
+<p style={{fontSize: "1.5rem", position: "fixed", right: 0}}>Interaction / UI</p>
+
+# State Synchronization
+
+- Initial state
+
+```tsx
+export default {
+  scatter: { 
+    title: 'scatter',
+    x: 'Attack',
+    y: 'Defense',
+    k: 2,
+    __typename: 'scatter'
+  },
+  parallel: {
+    id: 1,
+    title: 'parallel',
+    targets: [
+      { position: 0, name: 'Attack', __typename: 'target' },
+      { position: 1, name: 'Defense', __typename: 'target' }
+    ],
+    __typename: 'parallel'
+  },
+  details: {
+    title: 'details',
+    id: null,
+    __typename: 'details'
+  },
+  colors: []
+};
+```
+---
+
+<p style={{fontSize: "1.5rem", position: "fixed", right: 0}}>Interaction / UI</p>
+
+# State Synchronization
+
+- Selector for axes
+
+```tsx
+const update = (option: any) => {
+  switch (props.domain) {
+    case 'scatter':
+      client.writeData({
+        data: {
+          [props.domain]: {
+            [props.target]: option.value,
+            __typename: props.domain
+          }
+        }
+      });
+      break;
+    case 'parallel':
+      updateParallel({
+        variables: { target: option.value, position: props.position }
+      });
+      break;
+    default:
+      break;
+  }
+};
+```
+
+---
+
+<p style={{fontSize: "1.5rem", position: "fixed", right: 0}}>Interaction / UI</p>
+
+# State Synchronization
+
+- Fetch data
+
+```tsx
+const query = gql`
+  {
+    scatter {
+      title
+      x
+      y
+      k
+    }
+    parallel {
+      title
+      targets {
+        position
+        name
+      }
+    }
+    details @client {
+      title
+      id
+    }
+  }
+`;
+```
+
+---
+
