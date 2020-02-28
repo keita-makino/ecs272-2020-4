@@ -98,11 +98,13 @@ const Scatter: React.FC<Props> = (props: Props) => {
       className={'component'}
       alignContent={'center'}
     >
-      <Grid container item xs={8} sm={8} md={8} lg={8} xl={8}>
+      <Grid container item xs={12} sm={12} md={8} lg={8} xl={8}>
         {scatterData !== undefined ? (
           <XYPlot
-            width={containerSize.width / 1.55}
-            height={containerSize.height * 0.78}
+            width={containerSize.width / (windowSize.width > 959 ? 1.55 : 1.1)}
+            height={
+              containerSize.height * (windowSize.width > 959 ? 0.78 : 0.5)
+            }
             xType={tickValues.x !== undefined ? 'ordinal' : undefined}
             yType={tickValues.y !== undefined ? 'ordinal' : undefined}
             margin={{
@@ -144,24 +146,37 @@ const Scatter: React.FC<Props> = (props: Props) => {
       <Grid
         container
         item
-        xs={4}
-        sm={4}
+        xs={12}
+        sm={12}
         md={4}
         lg={4}
         xl={4}
         justify="center"
         alignItems="center"
       >
-        <SelectorPanel domain={'scatter'} target={'Search'} search />
-        <SelectorPanel domain={'scatter'} target={'x'} value={props.x} />
-        <SelectorPanel domain={'scatter'} target={'y'} value={props.y} />
+        <SelectorPanel
+          width={12}
+          selectors={[
+            {
+              domain: 'scatter',
+              target: 'Search'
+            }
+          ]}
+          search
+        />
+        <SelectorPanel
+          width={12}
+          selectors={['x', 'y'].map((item: any, index: number) => ({
+            domain: 'scatter',
+            target: item,
+            value: index === 0 ? props.x : props.y
+          }))}
+        />
         <SliderPanel initial={2} />
         {tickValues.x !== undefined || tickValues.y !== undefined ? (
-          <Grid item container xs={10} sm={10} md={10} lg={10} xl={10}>
-            <Typography variant={'body1'} color={'error'} align={'left'}>
-              Clustering is not enabled as one or more variables are discrete.
-            </Typography>
-          </Grid>
+          <Typography variant={'body1'} color={'error'} align={'center'}>
+            Clustering is not enabled as one or more variables are discrete.
+          </Typography>
         ) : null}
       </Grid>
     </Grid>

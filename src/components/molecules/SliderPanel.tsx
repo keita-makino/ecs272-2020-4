@@ -17,13 +17,12 @@ const SliderPanel: React.FC<Props> = (props: Props) => {
         lg={12}
         xl={12}
         alignItems={'center'}
+        style={{ padding: '0.5rem 1rem' }}
       >
-        <Grid item xs={2} sm={2} md={2} lg={2} xl={2}>
-          <Typography variant={'body1'}>k</Typography>
-        </Grid>
-        <Grid item xs={10} sm={10} md={10} lg={10} xl={10}>
-          <Slider {...props} />
-        </Grid>
+        <Typography variant={'body1'} style={{ paddingLeft: '0.5rem' }}>
+          k
+        </Typography>
+        <Slider {...props} />
       </Grid>
     </>
   );

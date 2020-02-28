@@ -19,10 +19,10 @@ export type Props = {
 
 const useStyles = makeStyles({
   selectorPanel: {
-    height: 'calc(30vh - 1.2rem - 9.6px)'
+    height: 'calc(35vh - 1.4rem - 9.6px)'
   },
   parallel: {
-    height: 'calc(70vh - 2.8rem - 22.4px)'
+    height: 'calc(65vh - 2.6rem - 22.4px)'
   }
 });
 
@@ -70,25 +70,22 @@ const Parallel: React.FC<Props> = (props: Props) => {
         justify={'center'}
         className={classes.selectorPanel}
       >
-        {Array(6)
-          .fill(0)
-          .map((_i, index) => (
-            <Grid item container xs={6} sm={6} md={6} lg={6} xl={6}>
-              <SelectorPanel
-                domain={'parallel'}
-                target={`Axis ${index + 1}`}
-                value={props.targets[index]?.name}
-                position={index}
-              />
-            </Grid>
-          ))}
+        <SelectorPanel
+          width={6}
+          selectors={Array(6)
+            .fill(0)
+            .map((item: any, index: number) => ({
+              domain: 'parallel',
+              target: `Axis ${index + 1}`,
+              value: props.targets[index]?.name,
+              position: index
+            }))}
+        />
         {colors === null ? (
-          <Grid item container xs={10} sm={10} md={10} lg={10} xl={10}>
-            <Typography variant={'body1'} color={'error'} align={'left'}>
-              Clustering is not enabled as one or more variables in the scatter
-              plot are discrete.
-            </Typography>
-          </Grid>
+          <Typography variant={'body1'} color={'error'} align={'center'}>
+            Clustering is not enabled as one or more variables in the scatter
+            plot are discrete.
+          </Typography>
         ) : null}
       </Grid>
       <Grid
@@ -124,11 +121,7 @@ const Parallel: React.FC<Props> = (props: Props) => {
                   .filter((item: any, index: number) => highlight === index + 1)
                   .map((item: LineSeriesPoint[], index: number) => {
                     return highlight !== index + 1 ? (
-                      <LineSeries
-                        data={item}
-                        color={colors ? '#222222' : '#12939a'}
-                        opacity={1}
-                      />
+                      <LineSeries data={item} color={'#222222'} opacity={1} />
                     ) : null;
                   })
               ]

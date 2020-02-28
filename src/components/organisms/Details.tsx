@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { Typography, Grid, Box } from '@material-ui/core';
+import { Typography, Grid, Box, Hidden } from '@material-ui/core';
 import usePokemon from '../uses/usePokemon';
 import { useWindowSize } from 'react-use';
 import useParallelData from '../uses/useParallelData';
@@ -75,7 +75,7 @@ const Details: React.FC<Props> = (props: Props) => {
           <Grid
             item
             container
-            xs={3}
+            xs={6}
             sm={3}
             md={3}
             lg={3}
@@ -83,12 +83,20 @@ const Details: React.FC<Props> = (props: Props) => {
             justify={'center'}
             alignContent={'space-around'}
           >
-            <img src={imgSrc} height={containerSize.height - 32}></img>
+            <img
+              src={imgSrc}
+              height={
+                Math.min(containerSize.width / 4, containerSize.height) - 32
+              }
+              width={
+                Math.min(containerSize.width / 4, containerSize.height) - 32
+              }
+            ></img>
           </Grid>
           <Grid
             item
             container
-            xs={3}
+            xs={6}
             sm={3}
             md={3}
             lg={3}
@@ -107,56 +115,60 @@ const Details: React.FC<Props> = (props: Props) => {
                 xl={12}
                 direction={'column'}
               >
-                <Typography variant={'h6'}>{key}</Typography>
-                <Typography variant={'h3'}>{value?.toString()}</Typography>
+                <Typography variant={'body1'} align={'left'}>
+                  {key}
+                </Typography>
+                <Typography variant={'h4'} align={'left'}>
+                  {value?.toString()}
+                </Typography>
               </Grid>
             ))}
           </Grid>
+          <Hidden smDown>
+            <Grid
+              item
+              container
+              md={2}
+              lg={2}
+              xl={2}
+              justify={'center'}
+              alignContent={'space-around'}
+            >
+              {subset?.slice(2).map(([key, value]) => (
+                <>
+                  <Grid
+                    item
+                    container
+                    xs={6}
+                    sm={6}
+                    md={6}
+                    lg={6}
+                    xl={6}
+                    alignContent={'center'}
+                  >
+                    <Typography variant={'subtitle2'}>{key}</Typography>
+                  </Grid>
+                  <Grid
+                    item
+                    container
+                    xs={6}
+                    sm={6}
+                    md={6}
+                    lg={6}
+                    xl={6}
+                    alignContent={'center'}
+                  >
+                    <Typography variant={'h6'}>{value?.toString()}</Typography>
+                  </Grid>
+                </>
+              ))}
+            </Grid>
+          </Hidden>
           <Grid
             item
             container
-            xs={2}
-            sm={2}
-            md={2}
-            lg={2}
-            xl={2}
-            justify={'center'}
-            alignContent={'space-around'}
-          >
-            {subset?.slice(2).map(([key, value]) => (
-              <>
-                <Grid
-                  item
-                  container
-                  xs={6}
-                  sm={6}
-                  md={6}
-                  lg={6}
-                  xl={6}
-                  alignContent={'center'}
-                >
-                  <Typography variant={'subtitle2'}>{key}</Typography>
-                </Grid>
-                <Grid
-                  item
-                  container
-                  xs={6}
-                  sm={6}
-                  md={6}
-                  lg={6}
-                  xl={6}
-                  alignContent={'center'}
-                >
-                  <Typography variant={'h6'}>{value?.toString()}</Typography>
-                </Grid>
-              </>
-            ))}
-          </Grid>
-          <Grid
-            item
-            container
-            xs={4}
-            sm={4}
+            xs={12}
+            sm={6}
             md={4}
             lg={4}
             xl={4}
@@ -166,8 +178,22 @@ const Details: React.FC<Props> = (props: Props) => {
             <RadarChart
               margin={{ top: 40, right: 30, bottom: 30, left: 40 }}
               data={[params] as RadarChartPoint[]}
-              height={containerSize.height - 32}
-              width={containerSize.height - 32}
+              height={
+                windowSize.width > 959
+                  ? windowSize.height * 0.32 - 56
+                  : windowSize.width > 599
+                  ? windowSize.height * 0.32 - 56
+                  : containerSize.height / (windowSize.width > 599 ? 1 : 1.5) -
+                    32
+              }
+              width={
+                windowSize.width > 959
+                  ? windowSize.height * 0.32 - 56
+                  : windowSize.width > 599
+                  ? windowSize.height * 0.32 - 56
+                  : containerSize.height / (windowSize.width > 599 ? 1 : 1.5) -
+                    32
+              }
               domains={
                 Object.entries(domains!).map(([key, value]) => ({
                   name: key,

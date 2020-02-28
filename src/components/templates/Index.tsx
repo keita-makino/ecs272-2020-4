@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import React from 'react';
-import { Grid, makeStyles } from '@material-ui/core';
+import { Theme, Grid, makeStyles } from '@material-ui/core';
 import Scatter, { Props as ScatterProps } from '../organisms/Scatter';
 import Details, { Props as DetailsProps } from '../organisms/Details';
 import Parallel, { Props as ParallelProps } from '../organisms/Parallel';
@@ -12,19 +12,32 @@ type Props = {
   parallel: ParallelProps;
 };
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme: Theme) => ({
   main: {
     minHeight: 'calc(100vh - 4rem)',
     backgroundColor: '#FBF6E5'
   },
-  scatter: {
-    height: 'calc(68vh - 2.72rem)'
+  [theme.breakpoints.down('sm')]: {
+    scatter: {
+      minHeight: 'calc(100vmax - 4rem)'
+    },
+    details: {
+      height: '50vmax'
+    },
+    parallel: {
+      minHeight: '100vmax'
+    }
   },
-  details: {
-    height: 'calc(32vh - 1.28rem)'
-  },
-  parallel: {
-    height: 'calc(100vh - 4rem)'
+  [theme.breakpoints.up('md')]: {
+    scatter: {
+      minHeight: 'calc(68vh - 2.72rem)'
+    },
+    details: {
+      height: 'calc(32vh - 1.28rem)'
+    },
+    parallel: {
+      minHeight: 'calc(100vh - 4rem)'
+    }
   },
   visBox: {
     boxShadow: 'inset 0 0 8px -3px #002855',
@@ -32,7 +45,7 @@ const useStyles = makeStyles({
       padding: '16px'
     }
   }
-});
+}));
 
 const Index: React.FC<Props> = (props: Props) => {
   const classes = useStyles();
