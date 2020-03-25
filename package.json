@@ -59,7 +59,7 @@
     "prettier": "1.19.1",
     "react-router-dom": "5.1.2",
     "react-select": "3.0.8",
-    "react-use": "13.26.1",
+    "react-use": "13.27.1",
     "react-vis": "1.11.7",
     "react-vis-types": "0.0.6"
   },
