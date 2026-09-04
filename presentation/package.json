@@ -28,6 +28,6 @@
     "spectacle-mdx-loader": "^0.1.0",
     "webpack": "^4.41.4",
     "webpack-cli": "^3.3.10",
-    "webpack-dev-server": "^3.10.1"
+    "webpack-dev-server": "^5.2.6"
   }
 }
